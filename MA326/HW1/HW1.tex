@@ -1,0 +1,206 @@
+\documentclass[10pt,twoside]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr, lastpage}
+\setlength{\voffset}{-1in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0.5in}
+\setlength{\headsep}{0.25in}
+\setlength{\textheight}{9.5in}
+\setlength{\footskip}{0.5in}
+\setlength{\hoffset}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\marginparsep}{0in}
+\setlength{\marginparwidth}{0in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{url}%
+
+%% Macros
+
+%Spaces
+\newcommand{\rn}{\mathbb{R}^{n}}
+\newcommand{\rnn}{\mathbb{R}^{n\times n}}
+\newcommand{\rmn}{\mathbb{R}^{m\times n}}
+\newcommand{\cn}{\mathbb{C}^{n}}
+\newcommand{\cnn}{\mathbb{C}^{n\times n}}
+\newcommand{\cmn}{\mathbb{C}^{m\times n}}
+
+%Various possibilities for inner products and norms
+\newcommand{\inner}[2]{\langle #1\mid #2\rangle}
+\newcommand{\norm}[2]{\left\|#1\right\|_{#2}}
+\newcommand{\normf}[1]{\left\|#1\right\|_{F}}
+\newcommand{\normtwo}[1]{\left\|#1\right\|_{2}}
+\newcommand{\normp}[1]{\left\|#1\right\|_{p}}
+
+%Boldface for vectors and tildes
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\B}[1]{\boldsymbol{#1}}
+\newcommand{\vect}[1]{\widetilde{\boldsymbol{#1}}}
+\newcommand{\matt}[1]{\widetilde{\boldsymbol{#1}}}
+
+%Column and row equivalence
+\newcommand{\roweq}{\stackrel{\text{row}}{\sim}}
+\newcommand{\coleq}{\stackrel{\text{col}}{\sim}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{fact}{Fact}
+\newtheorem{remark}{Remark}
+
+%Vector spaces
+\newcommand{\rank}{\text{rank}\,}
+\renewcommand{\dim}{\text{dim}\,}
+\newcommand{\Span}[1]{\text{Span}\,\{#1\}}
+\newcommand{\basis}[1]{\left\{ #1\right\}}
+
+\fancyhf{}
+\fancyhead[LO,RE]{MA 326}
+\fancyhead[RO,LE]{Due 5 PM, Friday, January 26}
+\chead{\textbf{Homework 1}}
+\cfoot{}
+\parindent 0in
+
+
+\begin{document}
+
+\vspace{0.2in}
+
+\textbf{Homework Policies:}
+
+When showing a theoretical statement or computation by hand is part of the exercise, the clarity and completeness of your arguments/steps will be as important as their correctness. 
+
+\vspace{0.1in}
+
+
+Your homework assignments can be handwritten or typeset, but all graphs should be included as images from the graphing tool that you use.
+
+\vspace{0.1in}
+
+The submission of homework that requires numerical work on a computer should include the following: printout of the code used to solve the problems, its inputs, and outputs. The code should be written clearly and should be commented in such a way that at least the inputs and outputs of the code are clear. The specific outputs requested by the exercise should be discussed in your write-up as needed in order to answer the questions in the problems. 
+
+\vspace{0.1in}
+The filenames for the code should be indicative of the exercise. For example, if it is a Jupyter notebook for homework 1 exercise 2, then it could be named \texttt{hw1Ex2.ipynb}.
+
+
+\vspace{0.1in}
+
+
+\textbf{\underline{Figures:}} 
+Each required plot should have the following features:
+\begin{itemize}
+\item Clearly label the x- and y-axes. All the labels should have fontsize $18$. 
+\item Add a title with fontsize $20$.
+\item Add legends to clearly label the plots. The fontsize for the labels should be $18$. 
+\item All the ticks in the figures should have fontsize $16$.
+\item The markersize should be $10$ pts, and the line-widths should be $4$ pts. 
+\end{itemize}
+
+
+\textbf{\underline{Submission:}}
+
+\begin{itemize}
+\item Please submit your solutions in a \emph{PDF file}, together with \emph{a .zip file containing all the code needed to reproduce your results}. Mention the students with whom you discussed the homework. 
+
+\item For the computer problems, include the printout of the code, inputs, outputs, required plots, and discussions needed to answer the questions (when appropriate).
+
+\end{itemize}
+
+
+
+Before working on the exercises:
+
+\vspace{0.1in}
+\textbf{Study and practice Python.} You may want to use the resources provided on the course Moodle page. The best way to learn would be by looking at existing code and writing a few programs yourself. If you are not sure how to write Python code properly or have never programmed before, please come to my office hours and discuss.
+
+\vspace{0.2in}
+
+\newpage
+\textbf{Exercises:}
+
+\vspace{0.1in}
+
+
+\begin{enumerate}
+
+\item (\emph{40 pts}) In this problem you will determine a cubic spline approximation that fits exactly through the five data points below:
+\[
+P_1(0, 2), \quad P_2(0.5,0), \quad P_3(1,1), \quad P_4(1.5, 2), \quad P_5(2, 0).
+\]
+The spline will be built using two cubic functions:
+\[
+y_1(x) = a_1 + a_2 x + a_3 x^2 + a_4 x^3,
+\]
+\[
+y_2(x) = a_5 + a_6 x + a_7 x^2 + a_8 x^3.
+\]
+\begin{enumerate}
+\item Formulate three linear algebraic equations ensuring that $y_1(x)$ goes exactly through the three points $P_1$, $P_2$, and $P_3$.
+\item Formulate three linear algebraic equations ensuring that $y_2(x)$ goes exactly through the three points $P_3$, $P_4$, and $P_5$.
+\item Formulate two linear algebraic equations ensuring that the slope and curvature (measured via the second derivative) are both continuous at the point $P_3$.
+\item By assembling the equations found in parts (a) -- (c), determine the matrix $\mat{A}$ and vector $\vec{b}$ in the linear system
+\[
+\mat{A}\vec{a} = \vec{b}, \text{ where } \vec{a} = [a_1, a_2, a_3, a_4, a_5, a_6, a_7, a_8]^T.
+\]
+\item Solve the linear system in part (d) to determine the two cubic functions $y_1(x)$ and $y_2(x)$, respectively. You may solve the linear system using Python packages.
+\item On the same graph, plot $y_1$ on the interval $[0,1]$, $y_2$ on the interval $[1,2]$, and the five data points $P_1, \dots, P_5$.
+\end{enumerate}
+
+%\newpage
+\item (\emph{30 pts}) Consider the linear regression model 
+\[
+\hat{f}(\vec{x}) = \beta_0+\beta_1 x_1 + \beta_2 x_2, \quad \mbox{ where } \vec{x} = [x_1, x_2],
+\]
+for the given data 
+\[
+\vec{x}_1 = [1, 1], y_1 = 0.1;~ 
+\vec{x}_2 = [-1,-1], y_2 = 5.95; ~
+\vec{x}_3 = [0,1], y_3 = 0.8; \]
+\[
+\vec{x}_4 = [1, 0], y_4 = 2.1; ~
+\vec{x}_5 = [1,2], y_5 = -1.8; ~
+\vec{x}_6 = [2,1], y_6 = -1.05.
+\]
+\begin{enumerate}
+\item Derive the normal equation for this least squares linear regression problem.
+\item Set up the normal equation in Python and use it to determine the regression model.
+\item On the same graph, plot the approximation $\hat{f}$ via a surface plot (using \texttt{plot\_surface} function) and plot the six data points. 
+\item What is the residual sum of squares of this model?
+\end{enumerate}
+
+\newpage
+\item (\emph{30 pts}) 
+Let $\mat{X} \in \mathbb{R}^{n\times (m+1)}$ and $\vec{y}\in \mathbb{R}^{n}$. Consider the least squares problem with Tikhonov regularization for $\lambda > 0$,
+\[ \min_{\vec{\beta}\in \mathbb{R}^{m+1}} \|\mat{X}\vec{\beta}-\vec{y}\|_2^2 + \lambda^2 \|\vec{\beta}\|_2^2. \] 
+\begin{enumerate}
+\item Derive the normal equations for this least squares problem.\\
+{\em Hint}: Define $J(\vec{\beta})= \|\mat{X}\vec{\beta}-\vec{y}\|_2^2 + \lambda^2 \|\vec{\beta}\|_2^2.$, and consider its gradient and Hessian matrices.
+\item Consider the linear regression model 
+\[
+\hat{f}(\vec{x}) =\beta_0+ \beta_1 x_1 + \beta_2 x_2, \quad \mbox{ where } \vec{x} = [x_1, x_2],
+\]
+for the given data 
+\[
+\vec{x}_1 = [1, 1], y_1 = 0.1;~ 
+\vec{x}_2 = [-1,-1], y_2 = 5.95; ~
+\vec{x}_3 = [0,1], y_3 = 0.8; \]
+\[
+\vec{x}_4 = [1, 0], y_4 = 2.1; ~
+\vec{x}_5 = [1,2], y_5 = -1.8; ~
+\vec{x}_6 = [2,1], y_6 = -1.05.
+\]
+Find the parameters $\beta_0$, $\beta_1$, and $\beta_2$ such that the following regularized squared error loss function with $\lambda = 1$ is minimized:
+\[
+\min_{\beta\in \mathbb{R}^3} \sum_{i=1}^6 \left(y_i- \beta_0 - \beta_{1}x_{i1} - \beta_{2}x_{i2}\right)^2 + \lambda^2(\beta_0^2 + \beta_1^2 + \beta_2^2).
+\]
+\item Repeat the process in part (b) with $\lambda = 2$.
+\item What is the residual sum of squares when $\lambda = 1$ and when $\lambda=2$ from parts (b) -- (c)?
+\end{enumerate}
+
+\end{enumerate}
+
+%%%% END %%%%
+\end{document}
