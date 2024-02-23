@@ -1,0 +1,158 @@
+\documentclass[10pt,twoside]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr, lastpage}
+\setlength{\voffset}{-1in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0.5in}
+\setlength{\headsep}{0.25in}
+\setlength{\textheight}{9.5in}
+\setlength{\footskip}{0.5in}
+\setlength{\hoffset}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\marginparsep}{0in}
+\setlength{\marginparwidth}{0in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{url}%
+
+%% Macros
+
+%Spaces
+\newcommand{\rn}{\mathbb{R}^{n}}
+\newcommand{\rnn}{\mathbb{R}^{n\times n}}
+\newcommand{\rmn}{\mathbb{R}^{m\times n}}
+\newcommand{\cn}{\mathbb{C}^{n}}
+\newcommand{\cnn}{\mathbb{C}^{n\times n}}
+\newcommand{\cmn}{\mathbb{C}^{m\times n}}
+
+%Various possibilities for inner products and norms
+\newcommand{\inner}[2]{\langle #1\mid #2\rangle}
+\newcommand{\norm}[2]{\left\|#1\right\|_{#2}}
+\newcommand{\normf}[1]{\left\|#1\right\|_{F}}
+\newcommand{\normtwo}[1]{\left\|#1\right\|_{2}}
+\newcommand{\normp}[1]{\left\|#1\right\|_{p}}
+
+%Boldface for vectors and tildes
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\B}[1]{\boldsymbol{#1}}
+\newcommand{\vect}[1]{\widetilde{\boldsymbol{#1}}}
+\newcommand{\matt}[1]{\widetilde{\boldsymbol{#1}}}
+
+%Column and row equivalence
+\newcommand{\roweq}{\stackrel{\text{row}}{\sim}}
+\newcommand{\coleq}{\stackrel{\text{col}}{\sim}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{fact}{Fact}
+\newtheorem{remark}{Remark}
+
+%Vector spaces
+\newcommand{\rank}{\text{rank}\,}
+\renewcommand{\dim}{\text{dim}\,}
+\newcommand{\Span}[1]{\text{Span}\,\{#1\}}
+\newcommand{\basis}[1]{\left\{ #1\right\}}
+
+\def\mb{\mathbf}
+
+\fancyhf{}
+\fancyhead[LO,RE]{MA 326}
+\fancyhead[RO,LE]{Due 5 PM, Friday, February 9}
+\chead{\textbf{Homework 2}}
+\cfoot{}
+\parindent 0in
+
+
+\begin{document}
+
+\vspace{0.2in}
+
+The usual homework policies (see Homework 1 policies)
+
+\vspace{0.1in}
+
+\textbf{\underline{Submission:}}
+
+\begin{itemize}
+\item Please submit your solutions in a \emph{PDF file}, together with \emph{a .zip file containing all the code needed to reproduce your results}. Mention the students with whom you discussed the homework. 
+
+\item For the computer problems, include the printout of the code, inputs, outputs, required plots, and discussions needed to answer the questions (when appropriate).
+
+\end{itemize}
+
+
+\textbf{Exercises:}
+
+\vspace{0.1in}
+
+
+\begin{enumerate}
+
+
+
+
+%\newpage
+\item (\emph{40 pts}) In this problem you will study how initialization of the k-means clustering algorithm can affect the final clustering result. You will compare two types of initialization for the representative vectors $\{\vec{c}_l\}_{l=1,\cdots, k}$.
+\begin{itemize}
+\item \textbf{Random initialization}: sampling components of the representative vectors from a distribution.
+\item \textbf{k++ initialization}: this is an alternative to random initialization and can be described via the following steps:
+\begin{enumerate}
+\item[i] Randomly select one of the points in the data set and assign it as the initial value of the representative vector $\vec{c_1}$.
+\item[ii] Select the point in the data set furthest away from $\vec{c_1}$. Assign this point as the initial value of the representative vector $\vec{c_2}$.
+\item[iii] Continue the procedure in step 2 for $\vec{c_3}, \vec{c_4}$, etc., ensuring that the initial value of the next representative vector $\vec{c_l}$ is the data point that is furthest away from the nearest vector among $\vec{c_1}, \cdots,\vec{c_{l-1}}$.
+\item[iv] The initialization is complete when initial values for the $k$ representative vectors $\{\vec{c}_l\}_{l=1,\cdots, k}$ have been chosen in this manner.
+\end{enumerate}
+\end{itemize}
+
+\begin{enumerate}
+\item Modify the provided script \texttt{kMeans\_demo.py} to implement k-means clustering with:
+\begin{enumerate}
+\item random initialization by sampling components using a uniform distribution for each component on the interval $[-2, 12]$.
+\item The k++ initialization outlined above.
+\end{enumerate}
+
+\item Test your algorithms on the provided data set. The data set for this problem should be loaded via \texttt{np.load("blobs.npy")} with $k = 5$. Create scatter plots for the initialized representative vectors in each cluster for both initialization schemes.
+
+\item By running $10$ realizations of the clustering for each initialization above with $k = 5$, compare the performance of the two initialization schemes. For both schemes, create appropriate plots to compare the overall coherence of the final clustering result.
+Determine which initialization yields better performance and explain why you think this occurs. 
+
+\end{enumerate}
+
+\item (\emph{30 pts}) Consider the matrix
+$$
+\mb{A} = 
+\begin{bmatrix}
+3 & 4 \\
+-4 & -3
+\end{bmatrix}.
+$$
+\begin{enumerate}
+\item Using the \texttt{svd()} function, compute the singular value decomposition of $\mb{A}$, $\mb{A} = \mb{U}\mb{\Sigma}\mb{V}^T$. 
+\item Find the left singular vectors, right singular vectors, and singular values $\sigma_1,~\sigma_2$ based on the decomposition.
+\item What is the rank of $\mb{A}$? How can it be read from the SVD?
+\item Find the inverse matrix $\mb{A}^{-1}$ via the SVD. Note that both $\mb{U}$ and $\mb{V}$ are orthogonal matrices.
+\item Compute the eigenvalues $\lambda_1$ and $\lambda_2$ of the matrix $\mb{A}$ by hand.
+\item Verify that the determinant satisfies $\text{det}(\mb{A}) = \lambda_1 \lambda_2$ and $|\text{det}(\mb{A})| = \sigma_1\sigma_2$. 
+\end{enumerate}
+
+
+
+
+\newpage
+\item (\emph{30 pts}) Write a Python program for image compression using low rank approximation via SVD.
+\begin{enumerate}
+\item Find an image file of your choice. Create an $m\times n$ matrix $\mb{A}$ that contains the gray-scale pixel data from the image, where the entries $0\le a_{ij}\le 1$. If you use a color image, first convert it to a grayscale image. The functions \texttt{imread}, \texttt{rgb2gray}, and \texttt{imshow} may be helpful.
+\item Create a rank - $5$ approximation $\mb{A}_5 = \sum_{j=1}^{5}\sigma_j u_j v_j^{T}$ to the matrix $\mb{A}$ using SVD. Show both the original image and the low-rank approximation in the report.
+\item For $1 \le r \le 10$, create a rank - $r$ approximation $\mb{A}_r = \sum_{j=1}^{r}\sigma_j u_j v_j^{T}$ to the matrix $\mb{A}$ and compute the approximation error $\|\mb{A}-\mb{A}_r\|_2$ in $2$-norm via \texttt{np.linalg.norm(A - Ar, ord=2)} . In the report, create a table showing the approximation errors $\|\mb{A}-\mb{A}_r\|_2$ for each value of $r$. How are $\|\mb{A}-\mb{A}_r\|_2$ related to the singular values of $\mb{A}$? Discuss your observations.
+\end{enumerate} 
+
+
+
+\end{enumerate}
+
+%%%% END %%%%
+\end{document}
